@@ -1,0 +1,7 @@
+# !pip install langchain
+!pip install pypdf
+!pip install openai
+!pip install tiktoken
+!pip install sentence-transformers
+!pip install chromadb
+!pip install gunicorn-21.2.0

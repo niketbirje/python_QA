@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Answering System</title>
+</head>
+<body>
+    <h1>Welcome to the Question Answering System</h1>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="pdfFile">Upload PDF File:</label>
+        <input type="file" name="pdf_file" accept=".pdf" required>
+        <br>
+        <label for="query">Query:</label>
+        <input type="text" name="query">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <hr>
+
+    <form action="/ask" method="post">
+        <label for="question">Ask a Question:</label>
+        <input type="text" name="question" required>
+        <br>
+        <input type="submit" value="Ask">
+    </form>
+    <div id="answerResult"></div>
+    <script>
+        function askQuestion() {
+            var question = document.forms["askForm"]["question"].value;
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question: question
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("answerResult").innerHTML = "<strong>Answer:</strong> " + data.answer;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
